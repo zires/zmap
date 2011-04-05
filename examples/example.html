@@ -7,7 +7,59 @@
     <script src="./lib/jquery.zmap.min.js" type="text/javascript"></script> 
     <script type="text/javascript">
      $(document).ready(function(){
-      $(".map").zmap();    
+      $("#map").zmap();    
+
+      $("#map1").zmap({
+        zoom : 9,
+        mapTypeId : google.maps.MapTypeId.HYBRID,
+        marker : false,
+        disableDefaultUI : true
+      });
+      
+      marker1 = new google.maps.Marker({
+        position : new google.maps.LatLng(-34.297, 150.244)  
+      });
+      marker2 = new google.maps.Marker({
+        position : new google.maps.LatLng(-34.327, 150.444)  
+      });
+      $("#map2").zmap({
+        marker : [marker1, marker2]
+      });
+      
+      var flightPlanCoordinates = [
+        new google.maps.LatLng(-34.297, 150.244), 
+        new google.maps.LatLng(-33.327, 150.44)];
+
+      var flightPath = new google.maps.Polyline({
+        path: flightPlanCoordinates,
+        strokeColor: "#FF0000",
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      });
+
+      $("#map3").zmap({
+        marker : false,  
+        after : function(map){
+          flightPath.setMap(map);  
+        }
+      });
+
+      $("#map4").zmap({
+        after : function(map){
+          google.maps.event.addListener(map, 'zoom_changed', function() {
+            alert('zoom_changed');
+          });
+        }
+      });
+
+      $("#map5").zmap({
+        before : function(options){
+          options.lat = "31.11",
+          options.lng = "121.29",
+          options.address = "ShangHai",
+          options.infoContent = "This Is New Info Window Content"
+        }
+      });
      }); 
     </script>
     <style>
@@ -19,8 +71,88 @@
     </style>
   </head>
   <body>
-    <div class="map" id="map" lat="-34.397" lng="150.644">this is content</div>
-    <div class="map" lat="34.397" lng="125.000">info window content</div>
-    <div class="map" lat="-34.397" lng="150.644"></div>
+    <p><b>Basic usage</b></p>
+    <pre>
+      $("#map").zmap();
+    </pre>
+    <div class="map" id="map" lat="-34.397" lng="150.644">Info Window Content</div>
+    <br />
+
+    <p><b>Options usage</b></p>
+    <pre>
+      $("#map1").zmap({
+        zoom : 9,
+        mapTypeId : google.maps.MapTypeId.HYBRID,
+        marker : false,
+        disableDefaultUI : true
+      });
+    </pre>
+    <div class="map" id="map1" lat="-34.397" lng="150.644">Info Window Content</div>
+    <br />
+
+    <p><b>custom makers</b></p>
+    <pre>
+      marker1 = new google.maps.Marker({
+        position : new google.maps.LatLng(-34.297, 150.244)  
+      });
+      marker2 = new google.maps.Marker({
+        position : new google.maps.LatLng(-34.327, 150.444)  
+      });
+      $("#map2").zmap({
+        marker : [marker1, marker2]
+      });
+    </pre>
+    <div class="map" id="map2" lat="-34.397" lng="150.644">Info Window Content</div>
+    <br />
+
+    <p><b>Polyline with callback</b></p>
+    <pre>
+      var flightPlanCoordinates = [
+        new google.maps.LatLng(-34.297, 150.244), 
+        new google.maps.LatLng(-34.327, 150.444)];
+
+      var flightPath = new google.maps.Polyline({
+        path: flightPlanCoordinates,
+        strokeColor: "#FF0000",
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      });
+
+      $("#map3").zmap({
+        marker : false,
+        after : function(map){
+          flightPath.setMap(map);  
+        }
+      });
+    </pre>
+    <div class="map" id="map3" lat="-34.397" lng="150.644">Info Window Content</div>
+    <br />
+
+    <p><b>Event with callback</b></p>
+    <pre>
+      $("#map4").zmap({
+        after : function(map){
+          google.maps.event.addListener(map, 'zoom_changed', function() {
+            alert('zoom_changed');
+          });
+        }
+      });
+    </pre>
+    <div class="map" id="map4" lat="-34.397" lng="150.644">Info Window Content</div>
+    <br />
+
+    <p><b>Change options with before callback</b></p>
+    <pre>
+      $("#map5").zmap({
+        before : function(options){
+          options.lat = "31.11",
+          options.lng = "121.29",
+          options.address = "ShangHai",
+          options.infoContent = "This Is New Info Window Content"
+        }
+      });
+    </pre>
+    <div class="map" id="map5" lat="-34.397" lng="150.644">Info Window Content</div>
+    <br />
   </body>
 </html>

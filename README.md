@@ -33,6 +33,10 @@ You can pass any google map support option.
 * infowindow --- default true. Only effect when marker set true. You can pass custom google infowindow object.
 * before --- function(options){}. Callback before map initialize.
 * after --- function(map){}. Callback after map created.
+* lat --- special lat value.
+* lng --- special lng value.
+* address --- default is your map div container text. special address.
+* infoContent --- default is your map div container text. special info window content.
 
 
 
