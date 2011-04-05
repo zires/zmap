@@ -23,7 +23,8 @@ Have Fun!
 
 # Examples
 
-see examples dir for more details.
+see examples dir for more details. 
+[example demo](http://zires.github.com/zmap/example)
 
 # Options
 
