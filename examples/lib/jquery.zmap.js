@@ -5,7 +5,7 @@
  * Author - t&zires
  * MIT License: http://www.opensource.org/licenses/mit-license.php
  * More 
- * -https://github.com/zires/zmap 
+ * - https://github.com/zires/zmap
  */
 
 (function($){
@@ -62,6 +62,10 @@
     if(options){
       $.extend(settings, options);
     }
+    //before callback
+    if (typeof settings.before == 'function') {
+      settings.before.call(this, settings);
+    }
     latlng = new google.maps.LatLng(parseFloat(settings.lat), parseFloat(settings.lng));
     settings.center = latlng; 
     //set diffient id
@@ -94,6 +98,10 @@
       }
       addMarker(marker, map);
     };
+    //after callback
+    if (typeof settings.after == 'function') {
+      settings.after.call(this, map);
+    }
   });
 };  
 })(jQuery);
