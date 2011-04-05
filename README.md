@@ -11,9 +11,7 @@ Then include jquery.zmap lib script.
 ## Basic Usage:
 
 HTML partial
-<pre>
     <div id="map" lat="-34.397" lng="150.644">Info Window Content.</div>
-</pre>
 
 script partial
 <pre>
