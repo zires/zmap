@@ -10,10 +10,17 @@
       $(".map").zmap();    
      }); 
     </script>
+    <style>
+      .map{
+        width:400px;
+        height:300px;
+        margin-top:10px;
+      }
+    </style>
   </head>
   <body>
-    <div class="map" id="map" style="width:100%; height:100%" lat="-34.397" lng="150.644"></div>
-    <div class="map" style="width:100%; height:100%" lat="34.397" lng="125.000"></div>
-    <div class="map" style="width:100%; height:100%" lat="-34.397" lng="150.644"></div>
+    <div class="map" id="map" lat="-34.397" lng="150.644">this is content</div>
+    <div class="map" lat="34.397" lng="125.000">info window content</div>
+    <div class="map" lat="-34.397" lng="150.644"></div>
   </body>
 </html>

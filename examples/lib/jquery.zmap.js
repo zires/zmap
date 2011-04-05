@@ -21,9 +21,32 @@
     mapTypeId : google.maps.MapTypeId.ROADMAP,
     lat : '0',
     lng : '0',
+    marker : true,
+    infowindow : true
     };
   
-  var dup = new Array();  
+  var dup = [timeToInteger()];  
+  
+  function addMarker(marker, map){
+    for (i in marker) {
+      marker[i].setMap(map);
+    }
+  };
+  
+  function addInfoWindow (options, marker, map) {
+    var infowindow;
+    if (options.infowindow instanceof google.maps.InfoWindow) {
+      infowindow = options.infowindow;
+    }else{
+      infowindow = new google.maps.InfoWindow({
+        content : options.infoContent   
+      });
+    }
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map,marker);
+    });
+  };
+
   return this.each(function(){
     // attribute lat and lng
     _default = {};
@@ -33,20 +56,44 @@
     if($(this).attr('lng')){
       _default.lng = $(this).attr('lng');
     }
+    _default.address = $(this).text();
+    _default.infoContent = $(this).text();
     $.extend(settings, _default);
     if(options){
       $.extend(settings, options);
     }
-    settings.center = new google.maps.LatLng(parseFloat(settings.lat), parseFloat(settings.lng));
+    latlng = new google.maps.LatLng(parseFloat(settings.lat), parseFloat(settings.lng));
+    settings.center = latlng; 
     //set diffient id
     if( $(this).attr('id') ){
       id = $(this).attr('id');
     }else{
-      id = "zmap_" + ((new Date().getTime()) ^ Math.random());
+      rand = dup.pop() + 1;
+      id = "zmap_" + rand;
+      dup.push(rand);
     }
     $(this).attr('id', id);
-    //map = new google.maps.Map(document.getElementById(id), settings);
+    map = new google.maps.Map(document.getElementById(id), settings);
+    // set marker if need
+    var marker = [];
+    if (settings.marker) {
+      if (settings.marker == true) {
+        _marker = new google.maps.Marker({
+          position : latlng,
+          title : settings.address
+        });
+        // set info window if need
+        if (settings.infowindow) {
+          addInfoWindow(settings, _marker, map);
+        }
+        marker.push(_marker);
+      }else if ($.isArray(settings.marker)) {
+        marker = settings.marker;
+      }else{
+        marker.push(settings.marker);
+      }
+      addMarker(marker, map);
+    };
   });
-
 };  
 })(jQuery);
