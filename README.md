@@ -8,16 +8,19 @@ First you need include jquery lib and google map scripts.
 Then include jquery.zmap lib script.
 <script src="jquery.zmap.min.js" type="text/javascript"></script>
 
-Basic Usage:
+# Basic Usage:
 
 HTML partial
+<pre>
 <div id="map" lat="-34.397" lng="150.644">Info Window Content.</div>
+</pre>
 
 script partial
+<pre>
 $(document).ready(function(){
 	$("#map").zmap();    
 }); 
-
+</pre>
 Have Fun!
 
 # Examples
