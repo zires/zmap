@@ -60,12 +60,19 @@
           options.infoContent = "This Is New Info Window Content"
         }
       });
+
+      $(".zmap").zmap();
      }); 
     </script>
     <style>
       .map{
         width:400px;
         height:300px;
+        margin-top:10px;
+      }
+      .zmap{
+        width:200px;
+        height:150px;
         margin-top:10px;
       }
     </style>
@@ -153,6 +160,16 @@
       });
     </pre>
     <div class="map" id="map5" lat="-34.397" lng="150.644">Info Window Content</div>
+    <br />
+    
+    <p><b>Quickly create a lot of maps use class</b></p>
+    <pre>
+      $(".zmap").zmap();
+    </pre>
+    <div class="zmap" lat="31.11" lng="121.29.644">Info Window Content</div>
+    <div class="zmap" lat="15.22" lng="120.458">Info Window Content</div>
+    <div class="zmap" lat="18.75" lng="15.24">Info Window Content</div>
+    <div class="zmap" lat="14.14" lng="14.14">Info Window Content</div>
     <br />
   </body>
 </html>
